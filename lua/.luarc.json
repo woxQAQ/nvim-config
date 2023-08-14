@@ -1,0 +1,10 @@
+{
+    "workspace.library": [
+        "/home/woxqaq/.local/share/nvim/lazy/neodev.nvim/types/nightly",
+        "/usr/share/nvim/runtime/lua",
+        "/home/woxqaq/.local/share/nvim/lazy/nvim-lspconfig/lua",
+        "/home/woxqaq/.config/nvim/lua",
+        "${3rd}/luv/library",
+        "${3rd}/luv/library"
+    ]
+}
