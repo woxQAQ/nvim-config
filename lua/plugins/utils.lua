@@ -10,9 +10,18 @@ return {
     {
         "folke/persistence.nvim",
         keys = {
-            { "<leader>qs", [[<cmd>lua require("persistence").load()<cr>]] },
-            { "<leader>ql", [[<cmd>lua require("persistence").load({last = true})<cr>]] },
-            { "<leader>qd", [[<cmd>lua require("persistence").stop()<cr>]] },
+            {   "<leader>qs",
+                [[<cmd>lua require("persistence").load()<cr>]],
+                desc = 'restore session for current directory'
+            },
+            {   "<leader>ql",
+                [[<cmd>lua require("persistence").load({last = true})<cr>]],
+                desc = 'restore the last session'
+            },
+            {   "<leader>qd",
+                [[<cmd>lua require("persistence").stop()<cr>]],
+                desc = 'stop save session when exit'
+            },
         },
         config = true,
     },
@@ -25,11 +34,12 @@ return {
         },
     },
 
-    {
-        "ethanholz/nvim-lastplace",
-        config = true,
-    },
+    -- {
+    --     "ethanholz/nvim-lastplace",
+    --     config = true,
+    -- },
 
+    -- flash.nvim 用于快速跳转
     {
         "folke/flash.nvim",
         keys = {
@@ -77,13 +87,13 @@ return {
         config = true,
     },
 
-    {
-        "kamykn/spelunker.vim",
-        event = "VeryLazy",
-        config = function()
-            vim.g.spelunker_check_type = 2
-        end
-    },
+    -- {
+    --     "kamykn/spelunker.vim",
+    --     event = "VeryLazy",
+    --     config = function()
+    --         vim.g.spelunker_check_type = 2
+    --     end
+    -- },
 
     {
         "ellisonleao/glow.nvim",
@@ -102,7 +112,7 @@ return {
                 "<leader>e",
                 mode = { "n", "v" },
                 "<cmd>Neotree toggle<cr>",
-                desc = "open the neotree"
+                desc = "open the n[e]otree"
             }
         },
         config = true,
