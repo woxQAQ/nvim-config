@@ -25,13 +25,35 @@ return{
     "nvim-telescope/telescope.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim",
-        { 
+        {
             'nvim-telescope/telescope-fzf-native.nvim',
-            build = 'make'
+            build = 'make',
+            cond = function ()
+                return vim.fn.executable 'make' == 1
+            end
         }
     },
     config = function()
+        local icon = require 'misc.icons'
         require('telescope').setup {
+            defaults = {
+                git_worktrees = vim.g.git_worktrees,
+                prompt_prefix = icon.ui.Telescope .. " ",
+                selection_caret = icon.ui.Forward .. " ",
+                path_display = {"smart"},
+                color_devicons = true,
+                vimgrep_arguments = {
+                    "rg",
+                    "--color=never",
+                    "--no-heading",
+                    "--with-filename",
+                    "--line-number",
+                    "--column",
+                    "--smart-case",
+                    "--hidden",
+                    "--glob=!.git/",
+                }
+            },
             fzf = {
                 fuzzy = true,
                 override_generic_sorter = true,

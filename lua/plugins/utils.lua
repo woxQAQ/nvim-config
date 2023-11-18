@@ -1,5 +1,10 @@
 return {
     {
+          'tpope/vim-fugitive',
+          'tpope/vim-rhubarb',
+          'tpope/vim-sleuth',
+    },
+    {
         "rhysd/accelerated-jk",
         keys = {
             { "j", "<Plug>(accelerated_jk_gj)" },
@@ -32,6 +37,9 @@ return {
         opts = {
             enable_check_bracket_line = false,
         },
+        config = {
+            check_ts = true,
+        }
     },
 
     -- {
@@ -100,7 +108,33 @@ return {
         event = "VeryLazy",
         config = true,
     },
-
+    -- {
+    --     "kevinhwang91/nvim-ufo",
+    --     event = "InsertEnter",
+    --     dependencies = "kevinhwang91/promise-async",
+    --     opts = {
+    --         preview = {
+    --             mappings = {
+    --                 scrollB = "<C-b>",
+    --                 scrollF = "<C-f>",
+    --                 scrollU = "<C-u>",
+    --                 scrollD = "<C-d>",
+    --             },
+    --         },
+    --         provider_selector = function (_, filetype, buftype)
+    --             local function handleFallbackException(bufnr, err, providerName)
+    --                 if type(err) == "string" and err:match "UfoFallbackException" then
+    --                     return require("ufo").getFolds(bufnr, providerName)
+    --                 else
+    --                     return require("promise").reject(err)
+    --                 end
+    --             end
+    --             return (filetype == "" or buftype == "nofile") and "indent" or function(bufnr)
+    --             return require("ufo").getFolds(bufnr, "lsp"):catch(function(err) return handleFallbackException(bufnr, err, "treesitter") end):catch(function(err) return handleFallbackException(bufnr, err, "indent") end)
+    --         end
+    --     end,
+    --     }
+    -- },
     {
         "nvim-neo-tree/neo-tree.nvim",
         dependencies = {
@@ -131,8 +165,30 @@ return {
     },
 
     {
-        "echasnovski/mini.comment",
+        "numToStr/Comment.nvim",
         event = "VeryLazy",
-        config = true,
+        config = function ()
+            require('Comment').setup {
+                padding = true,
+                sticky = true,
+                toggler = {
+                    line = "gcc",
+                    block = "gbc",
+                },
+                opleader = {
+                    line = "gc",
+                    block = "gb"
+                },
+                extra = {
+                    above = "gcO",
+                    below = "gco",
+                    eol = "gcA",
+                },
+                mappings = {
+                    basic = true,
+                    extra = true,
+                },
+            }
+        end
     },
 }

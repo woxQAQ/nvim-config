@@ -2,7 +2,6 @@
 
 local option = vim.opt
 local buffer = vim.b
-local global = vim.g
 -- global settings --
 
 option.showmode = false
@@ -21,7 +20,7 @@ option.ignorecase = true
 option.smartcase = true
 option.completeopt = {"menuone", "noselect"}
 option.cursorline = true
-option.termguicolors = true
+option.termguicolors = false
 option.signcolumn = "yes"
 option.autoread = true
 option.title = true

@@ -7,10 +7,9 @@ return {
         "williamboman/mason-lspconfig.nvim",
         "folke/neoconf.nvim",
         "folke/neodev.nvim",
-
         {
             "j-hui/fidget.nvim",
-            tag = "legacy",
+            opts = {}
         },
         "nvimdev/lspsaga.nvim",
     },
@@ -20,12 +19,79 @@ return {
             marksman = {},
             lua_ls = {
                 Lua = {
-                    workspace = {checkThirdParty = false},
+                    format = {
+                        enable = false,
+                    },
+                    diagnostics = {
+                        globals = { 'vim'},
+                    },
+                    runtime = {
+                        version = "LuaJIT",
+                        special = {
+                            spec = "require"
+                        }
+                    },
+                    workspace = {
+                        checkThirdParty = false,
+                        library = {
+                            [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+                            [vim.fn.stdpath "config" .. "/lua"] = true,
+                        }
+                    },
                     telemetry = {enable = false}
                 }
             },
+            cssls = {},
+            html = {},
+            jsonls = {},
             gopls = {},
         }
+        local icons = require 'misc.icons'
+        local default_diagnostic_config = {
+            virtual_text = false,
+            update_in_insert = false,
+            underline = true,
+            severity_sort = true,
+            float = {
+                focusable = true,
+                style = "minimal",
+                border = "rounded",
+                source = "always",
+                header = "",
+                prefix = ""
+            },
+            signs = {
+                active = true,
+                values = {
+                    {
+                        name = "DiagnosticSignError",
+                        text = icons.diagnostics.Error
+                    },
+                    {
+                        name = "DiagnosticSignWarning",
+                        text = icons.diagnostics.Warning
+                    },
+                    {
+                        name = "DiagnosticSignHint",
+                        text = icons.diagnostics.Hint
+                    },
+                    {
+                        name = "DiagnosticSignInfo",
+                        text = icons.diagnostics.Information
+                    },
+                }
+            }
+        }
+        vim.diagnostic.config(default_diagnostic_config)
+        for _, sign in ipairs(vim.tbl_get(vim.diagnostic.config(), "signs", "values") or {}) do
+            vim.fn.sign_define(sign.name, {texthl = sign.name, text = sign.text, numhl = sign.name})
+        end
+        
+        if vim.g.lsp_handlers_enabled then
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", silent = true })
+            vim.lsp.handlers["textDocument/signatureHelp"] =
+            vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded", silent = true })
+        end
         require("neoconf").setup()
         require("neodev").setup()
         require("fidget").setup()
@@ -51,17 +117,17 @@ return {
 
                 -- Buffer local mappings.
                 -- See `:help vim.lsp.*` for documentation on any of the below functions
-                vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, 
+                vim.keymap.set('n', 'gD', vim.lsp.buf.declaration,
                                 {buffer = ev.buf, desc = {'[g]oto [D]eclaration'}})
-                vim.keymap.set('n', 'gd', require "telescope.builtin".lsp_definitions, 
+                vim.keymap.set('n', 'gd', require "telescope.builtin".lsp_definitions,
                                 {buffer = ev.buf, desc = {'[g]oto [d]efinition'}})
-                vim.keymap.set('n', 'K', vim.lsp.buf.hover, 
+                vim.keymap.set('n', 'K', vim.lsp.buf.hover,
                                 {buffer = ev.buf, desc = '[K]Hover document'})
-                vim.keymap.set('n', 'gi', require("telescope.builtin").lsp_implementations, 
+                vim.keymap.set('n', 'gi', require("telescope.builtin").lsp_implementations,
                                 {buffer = ev.buf, desc = '[g]oto [i]mplement'})
-                vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, 
+                vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
                                 {buffer = ev.buf, desc = '[control-k]signature document'})
-                vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, 
+                vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder,
                                 {buffer = ev.buf, desc = '[w]orkspace [a]dd Folder'})
                 vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder,
                                 {buffer = ev.buf, desc = '[w]orkspave [r]emove Folder'})
@@ -78,7 +144,7 @@ return {
                                 {buffer = ev.buf, desc = '[c]ode [a]ction'})
                 vim.keymap.set('n', 'gr', require("telescope.builtin").lsp_references, 
                                 {buffer = ev.buf, desc = '[g]oto [r]eference'})
-                vim.keymap.set('n', '<leader>f', function()
+                vim.keymap.set('n', '<leader>fm', function()
                     vim.lsp.buf.format { async = true }
                 end, {buffer = ev.buf, desc = '[f]ormat current buffer'})
             end,

@@ -8,4 +8,16 @@
             ]
         }
     },
+    "neoconf" : {
+        "plugins" : {
+            "lua_ls" : {
+                "enable" : true
+            }
+        }
+    }
+  //   "lspconfig": {
+  //       "lua_ls": {
+  //     "Lua.format.enable": false
+  //   }
+  // }
 }
