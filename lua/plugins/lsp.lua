@@ -44,6 +44,7 @@ return {
             cssls = {},
             html = {},
             jsonls = {},
+            yamlls = {},
             gopls = {},
         }
         local icons = require 'misc.icons'
@@ -95,6 +96,7 @@ return {
         require("neoconf").setup()
         require("neodev").setup()
         require("fidget").setup()
+        require("lspconfig.ui.windows").default_options.order = "rounded"
         require("mason").setup()
         require("lspsaga").setup()
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -106,6 +108,9 @@ return {
                         settings = servers[server_name],
                         capabilities = capabilities,
                     }
+                    if server_name == "lua_ls" then
+                        require("neodev").setup{}
+                    end
                 end,
             }
         })
@@ -134,7 +139,7 @@ return {
                 vim.keymap.set('n', '<leader>wl', function()
                     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                 end, {buffer = ev.buf, desc = '[w]orkspace [l]ist Folders'})
-                vim.keymap.set('n', '<leader>da', require "telescope.builtin".diagnostics,
+                vim.keymap.set('n', '<leader>da', vim.diagnostic.open_float,
                                 {buffer = ev.buf, desc = 'Show [d]i[a]gnostics'})
                 vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, 
                                 {buffer = ev.buf, desc = 'type [D]efinition'})

@@ -1,4 +1,4 @@
-return{
+return {
     "nvim-treesitter/nvim-treesitter",
     event = "VeryLazy",
     dependencies = {
@@ -23,7 +23,9 @@ return{
         },
         indent = {
             enable = true,
+            disable = {"yaml"},
         },
+        autopairs = {enable =true},
         -- incremental_selection = {
         --     enable = true,
         -- },

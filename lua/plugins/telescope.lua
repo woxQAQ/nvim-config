@@ -73,5 +73,6 @@ return{
         end, {desc = '[/] Fuzzily search in current buffer'})
         vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[fd] Search Diagnostics'})
         vim.keymap.set('n', '<leader>sg', ':LiveGrepGitRoot<cr>', { desc = '[sg] Search by Grep on git root'})
+        vim.keymap.set('n', '<leader>gb', ':Telescope git_branches<cr>', { desc = '[gb] Checkout branch'})
     end,
 }

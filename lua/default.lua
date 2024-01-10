@@ -34,4 +34,5 @@ option.splitright = true
 option.clipboard = "unnamedplus"
 -- buffer  setting--
 buffer.fileenconding = "utf-8"
+option.guifont = "monaco,13"
 
