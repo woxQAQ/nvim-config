@@ -9,7 +9,7 @@ return {
     build = ":TSUpdate",
     opts = {
         ensure_installed = {
-            'c', 'cpp', 'go', 'lua', 'python', 'vimdoc', 'vim', 'bash'
+            'c', 'cpp', 'go', 'lua', 'python', 'vimdoc', 'vim', 'bash', 'gomod'
         },
         auto_tag = { enable = true },
 
@@ -17,9 +17,10 @@ return {
         sync_install = false,
         highlight = {
             enable = true,
-            disable = function (_, bufnr)
-                return vim.b[bufnr].large_buf
-            end
+            -- disable = function (_, bufnr)
+            --     return vim.b[bufnr].large_buf
+            -- end,
+            additional_vim_regex_highlighting = false
         },
         indent = {
             enable = true,

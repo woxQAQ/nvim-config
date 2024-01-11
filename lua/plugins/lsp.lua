@@ -46,6 +46,7 @@ return {
             jsonls = {},
             yamlls = {},
             gopls = {},
+            -- goimports_reviser = {},
         }
         local icons = require 'misc.icons'
         local default_diagnostic_config = {
