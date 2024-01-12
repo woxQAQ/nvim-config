@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 local opts = {
 
     install = {
-        colorscheme = { "tokyonight-storm" },
+        colorscheme = { "catppuccin" },
     },
     ui = {
         border = "rounded"

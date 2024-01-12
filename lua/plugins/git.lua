@@ -1,5 +1,18 @@
 return{
-{
+    {
+        "sindrets/diffview.nvim",
+        event = "VeryLazy",
+        cmd =
+        {
+            "DiffviewOpen",
+            "DiffviewClose",
+            "DiffviewToggleFiles",
+            "DiffviewFocusFiles"
+        },
+    },
+    'tpope/vim-fugitive',
+    'tpope/vim-rhubarb',
+    {
         "lewis6991/gitsigns.nvim",
         config = true,
         event = "VeryLazy",

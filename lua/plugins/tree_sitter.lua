@@ -9,11 +9,22 @@ return {
     build = ":TSUpdate",
     opts = {
         ensure_installed = {
-            'c', 'cpp', 'go', 'lua', 'python', 'vimdoc', 'vim', 'bash', 'gomod'
+            'c',
+            'cpp',
+            'go',
+            'lua',
+            'python',
+            'vimdoc',
+            'vim',
+            'bash',
+            'gomod',
+            'gosum',
+            'gowork',
+            'luadoc',
+            'yaml'
         },
         auto_tag = { enable = true },
-
-        auto_installed = false,
+        auto_installed = true,
         sync_install = false,
         highlight = {
             enable = true,
@@ -24,12 +35,18 @@ return {
         },
         indent = {
             enable = true,
-            disable = {"yaml"},
+            -- disable = {"yaml"},
         },
         autopairs = {enable =true},
-        -- incremental_selection = {
-        --     enable = true,
-        -- },
+        incremental_selection = {
+            enable = true,
+            keymaps = {
+                init_selection = "<leader>gnn",
+                node_incremental = "<leader>gnr",
+                scope_incremental = "<leade>gne",
+                node_decremental = "<leader>gnt"
+            }
+        },
         textobjects = {
             select = {
                 enable = true,

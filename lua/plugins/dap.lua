@@ -1,20 +1,28 @@
 return {
     'mfussenegger/nvim-dap',
+    event = "BufRead",
     -- NOTE: And you can specify dependencies as well
     dependencies = {
-    -- Creates a beautiful debugger UI
-    'rcarriga/nvim-dap-ui',
+        -- Creates a beautiful debugger UI
+        'rcarriga/nvim-dap-ui',
 
-    -- Installs the debug adapters for you
-    'williamboman/mason.nvim',
-    'jay-babu/mason-nvim-dap.nvim',
+        -- Installs the debug adapters for you
+        'williamboman/mason.nvim',
+        'jay-babu/mason-nvim-dap.nvim',
+        "theHamsta/nvim-dap-virtual-text",
 
-    -- Add your own debuggers here
-    'leoluz/nvim-dap-go',
+        -- Add your own debuggers here
+        'leoluz/nvim-dap-go',
     },
     config = function()
         local dap = require 'dap'
         local dapui = require 'dapui'
+        local virtual_text = require("nvim-dap-virtual-text")
+
+        -- dap.adapters.lldb = {
+        --     type = "executable",
+        --     command = '/opt/homebrew/opt/'
+        -- }
 
         require('mason-nvim-dap').setup {
             -- Makes a best effort to setup the various debuggers with
@@ -60,6 +68,7 @@ return {
                     disconnect = ' ⏏ ',
                 },
             },
+
         }
         -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
         vim.keymap.set('n', '<leader>ds', dapui.toggle, { desc = '[D]ebug: [S]ee last session result.' })
@@ -69,6 +78,7 @@ return {
         dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
         -- Install golang specific config
+        virtual_text.setup()
         require('dap-go').setup()
 
     end

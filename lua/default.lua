@@ -15,9 +15,11 @@ option.smartindent = true
 option.number = true
 option.relativenumber = true
 option.wildmenu = true
-option.hlsearch = false
+option.hlsearch = true
 option.ignorecase = true
 option.smartcase = true
+
+option.pumheight = true
 option.completeopt = {"menuone", "noselect"}
 option.cursorline = true
 option.termguicolors = false
